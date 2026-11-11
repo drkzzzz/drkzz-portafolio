@@ -151,6 +151,14 @@ export const copy = {
         detail:
           "Actualmente participo en actividades de desarrollo y mejora de software junto con un equipo. En mis prácticas he trabajado en Cochera SAT, una solución para la operación del estacionamiento con trabajo relacionado con lectura de placas (LPR). Mi aporte se centra en colaborar en la evolución de estas soluciones para necesidades institucionales.",
       },
+      {
+        index: "03",
+        label: "Datos e inteligencia de negocios",
+        title: "ETL, Data Warehouse y dashboards",
+        place: "SSIS · cubos analíticos · Power BI",
+        detail:
+          "También he trabajado en integración y transformación de datos con procesos ETL y SSIS, organización de información para Data Warehouse y cubos analíticos, y creación de dashboards en Power BI para presentar y explorar datos.",
+      },
     ],
     skillsKicker: "03 / Herramientas",
     skillsTitle: "Un stack que se adapta\nal problema.",
@@ -195,6 +203,11 @@ export const copy = {
           "PostgreSQL",
           "SQL Server",
           "MySQL",
+          "ETL",
+          "SQL Server Integration Services (SSIS)",
+          "Data Warehouse",
+          "Cubos analíticos",
+          "Power BI",
           "Modelado relacional",
           "Consultas SQL",
         ],
@@ -414,6 +427,14 @@ export const copy = {
         detail:
           "I currently take part in software development and improvement with a team. During my internship I have worked on Cochera SAT, a parking operations solution with work related to license plate recognition (LPR). My contribution is to help evolve software for institutional needs.",
       },
+      {
+        index: "03",
+        label: "Data & business intelligence",
+        title: "ETL, Data Warehouse & dashboards",
+        place: "SSIS · analytical cubes · Power BI",
+        detail:
+          "I have also worked on data integration and transformation through ETL and SSIS, organizing information for Data Warehouses and analytical cubes, and building Power BI dashboards to explore and present data.",
+      },
     ],
     skillsKicker: "03 / Tools",
     skillsTitle: "A stack that adapts\nto the problem.",
@@ -456,6 +477,11 @@ export const copy = {
           "PostgreSQL",
           "SQL Server",
           "MySQL",
+          "ETL",
+          "SQL Server Integration Services (SSIS)",
+          "Data Warehouse",
+          "Analytical cubes",
+          "Power BI",
           "Relational modeling",
           "SQL queries",
         ],
