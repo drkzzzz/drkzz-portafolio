@@ -1,0 +1,187 @@
+---
+import '../styles/global.css';
+import { copy, profile, type Locale } from '../data/portfolio';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = copy[lang];
+const otherLang = lang === 'es' ? 'en' : 'es';
+const canonical = `${profile.domain}/${lang}/`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  url: profile.domain,
+  email: profile.email,
+  jobTitle: profile.role,
+  sameAs: [profile.github],
+  affiliation: { '@type': 'CollegeOrUniversity', name: profile.university },
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c100e" />
+    <meta name="description" content={t.description} />
+    <meta name="author" content={profile.name} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es-PE" href={`${profile.domain}/es/`} />
+    <link rel="alternate" hreflang="en-US" href={`${profile.domain}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${profile.domain}/es/`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_PE' : 'en_US'} />
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="drkzz" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={t.title} />
+    <meta name="twitter:description" content={t.description} />
+    <title>{t.title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body data-locale={lang}>
+    <a class="skip-link" href="#contenido-principal">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
+    <div class="preloader" aria-hidden="true">
+      <div class="preloader__brand">drkzz<span>.</span></div>
+      <div class="preloader__line"><span></span></div>
+    </div>
+
+    <header class="site-header" id="top">
+      <a class="wordmark" href={`/${lang}/`} aria-label={`drkzz — ${t.nav[0]}`}>drkzz<span>.</span></a>
+      <nav class="main-nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
+        {t.nav.map((item, i) => <a href={`#${['inicio','perfil','trayectoria','proyectos','enfoque','contacto'][i]}`}>{item}</a>)}
+      </nav>
+      <div class="header-tools">
+        <span class="availability"><i aria-hidden="true"></i>{t.availability}</span>
+        <a class="language-switch" href={`/${otherLang}/`} hreflang={otherLang} aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}>
+          <span class={lang === 'es' ? 'is-selected' : ''}>ES</span><span class="language-switch__slash">/</span><span class={lang === 'en' ? 'is-selected' : ''}>EN</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label={lang === 'es' ? 'Abrir menú' : 'Open menu'}>
+          <span></span><span></span>
+        </button>
+      </div>
+      <nav class="mobile-nav" id="mobile-menu" aria-label={lang === 'es' ? 'Navegación móvil' : 'Mobile navigation'} hidden>
+        {t.nav.map((item, i) => <a href={`#${['inicio','perfil','trayectoria','proyectos','enfoque','contacto'][i]}`}><span>0{i + 1}</span>{item}</a>)}
+        <a class="mobile-nav__language" href={`/${otherLang}/`} hreflang={otherLang}>{lang === 'es' ? 'Switch to English ↗' : 'Cambiar a español ↗'}</a>
+      </nav>
+    </header>
+
+    <main id="contenido-principal">
+      <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
+        <div class="hero__topline"><span class="eyebrow"><i class="eyebrow__dash"></i>{t.heroEyebrow}</span><span class="hero__index">01 — 06</span></div>
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1 id="hero-title" class="hero__title"><span>{t.heroLine1}</span><span>{t.heroLine2}</span><span>{t.heroLine3}</span></h1>
+            <div class="hero__bottom">
+              <p class="hero__intro">{t.heroIntro}</p>
+              <div class="hero__actions">
+                <a class="button button--primary magnetic" href="#proyectos"><span>{t.projectsCta}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 4l6 6-6 6" /></svg></a>
+                <a class="text-link" href="#contacto">{t.contactCta}<span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label={lang === 'es' ? 'Composición geométrica abstracta' : 'Abstract geometric composition'} role="img">
+            <div class="hero-visual__halo"></div>
+            <div class="hero-visual__axis hero-visual__axis--x"></div><div class="hero-visual__axis hero-visual__axis--y"></div>
+            <div class="hero-visual__orbit hero-visual__orbit--outer"></div><div class="hero-visual__orbit hero-visual__orbit--inner"></div>
+            <div class="hero-visual__core"><span>drk</span><i></i><small>SOFTWARE<br />SYSTEMS</small></div>
+            <span class="hero-visual__tag hero-visual__tag--top">SYSTEMS / 01</span><span class="hero-visual__tag hero-visual__tag--bottom">BUILD WITH INTENT</span>
+            <span class="hero-visual__dot hero-visual__dot--a"></span><span class="hero-visual__dot hero-visual__dot--b"></span>
+          </div>
+        </div>
+        <div class="hero__foot"><span>{profile.name}</span><a href="#perfil"><span class="scroll-mark"><i></i></span>{t.scroll}</a><span>FULL STACK DEVELOPER</span></div>
+      </section>
+
+      <section class="about section-shell section-block" id="perfil" aria-labelledby="about-title">
+        <div class="section-heading"><p class="eyebrow">{t.aboutKicker}</p><span class="section-heading__rule"></span><h2 class="section-heading__label">{t.section.about}</h2></div>
+        <div class="about__layout">
+          <h2 id="about-title" class="display-heading about__title">{t.aboutTitle.split('\n').map((line) => <span>{line}</span>)}</h2>
+          <div class="about__body"><p>{t.about}</p><p>{t.about2}</p>
+            <ul class="facts">{t.facts.map((fact, i) => <li><span>0{i + 1}</span>{fact}</li>)}</ul>
+          </div>
+        </div>
+        <div class="experience-strip" id="trayectoria" aria-labelledby="experience-title">
+          <div class="experience-strip__heading"><span class="eyebrow">{t.journeyKicker}</span><h3 id="experience-title">{t.journeyTitle}</h3></div>
+          <div class="experience-strip__items">
+            {t.experience.map((item) => <article class="experience-entry"><span class="experience-entry__index">{item.index} / {item.label}</span><h4>{item.title}</h4><p class="experience-entry__place">{item.place}</p><p class="experience-entry__detail">{item.detail}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="projects section-shell section-block" id="proyectos" aria-labelledby="projects-title">
+        <div class="section-heading"><p class="eyebrow">{t.projectsKicker}</p><span class="section-heading__rule"></span><h2 class="section-heading__label">{t.section.projects}</h2></div>
+        <div class="projects__intro"><h2 id="projects-title" class="display-heading">{t.projectsTitle.split('\n').map((line) => <span>{line}</span>)}</h2><p>{lang === 'es' ? 'Una selección de sistemas y experiencias donde software, datos e integración se encuentran.' : 'A selection of systems and experiences where software, data, and integration meet.'}</p></div>
+        <div class="project-list">
+          {t.projects.map((project, i) => <details class:list={['project-item', `project-item--${project.visual}`]} name="project-details" open={i === 0}>
+            <summary class="project-item__summary"><span class="project-item__number">{project.number}</span><span class="project-item__heading"><span class="project-item__type">{project.type}</span><strong>{project.name}</strong></span><span class="project-item__toggle" aria-hidden="true">+</span></summary>
+            <div class="project-item__detail">
+            <div class="project__visual" aria-hidden="true">
+              <span class="project__visual-code">{project.number} / {project.type.toUpperCase()}</span>
+              <div class:list={['project-art', `project-art--${project.visual}`]}>
+                {project.visual === 'rings' && <svg viewBox="0 0 440 260"><path class="art-line" d="M44 54h352M44 112h352M44 170h352M44 228h352M86 34v190M164 34v190M242 34v190M320 34v190"/><rect class="art-panel" x="169" y="108" width="102" height="52" rx="10"/><path class="art-fill" d="m187 144 12-19h41l16 19v7h-69z"/><circle class="art-fill" cx="200" cy="155" r="7"/><circle class="art-fill" cx="245" cy="155" r="7"/><path class="art-highlight" d="M335 79h38v38h-38z"/><text x="344" y="105">P</text><path class="art-line art-dash" d="M95 82h54m-54 58h54m-54 58h54m180-116h38m-38 58h38m-38 58h38"/></svg>}
+                {project.visual === 'signal' && <svg viewBox="0 0 440 260"><path class="art-line" d="M52 216h336"/><path class="art-panel" d="M112 34h150l48 48v134H112z"/><path class="art-line" d="M262 34v49h48M145 108h119M145 136h102M145 164h78"/><path class="art-highlight" d="M290 156h86v52h-86z"/><text x="302" y="188">API</text><path class="art-line art-dash" d="M264 181h26"/></svg>}
+                {project.visual === 'orbit' && <svg viewBox="0 0 440 260"><rect class="art-frame" x="161" y="18" width="118" height="224" rx="23"/><rect class="art-panel" x="172" y="48" width="96" height="176" rx="12"/><circle class="art-highlight" cx="220" cy="34" r="3"/><text x="185" y="77">AURATECH</text><rect class="art-chip" x="184" y="92" width="72" height="47" rx="8"/><circle class="art-fill" cx="201" cy="110" r="8"/><path class="art-line" d="M215 106h29m-29 9h21"/><rect class="art-chip" x="184" y="149" width="72" height="47" rx="8"/><circle class="art-highlight" cx="200" cy="166" r="7"/><path class="art-line" d="M215 164h28m-28 9h19"/></svg>}
+                {project.visual === 'commerce' && <svg viewBox="0 0 440 260"><path class="art-line" d="M54 66h212M54 66v146h212V66M76 86h168v106H76z"/><path class="art-panel" d="M91 108h60v69H91zM168 108h60v69h-60z"/><path class="art-fill" d="m106 154 13-26 15 26zM184 151v-20h12v20m-12-10h28v25h-28z"/><path class="art-line" d="M103 185h35m41 0h35"/><path class="art-highlight" d="M302 91h75v112h-75z"/><path class="art-line" d="M313 110h52m-52 17h52m-52 17h35"/><circle class="art-fill" cx="319" cy="181" r="5"/><circle class="art-fill" cx="359" cy="181" r="5"/><text x="306" y="80">DRINKGO / POS</text></svg>}
+                {project.visual === 'grid' && <svg viewBox="0 0 440 260"><rect class="art-panel" x="79" y="32" width="282" height="196" rx="12"/><path class="art-highlight" d="M79 74h282"/><path class="art-line" d="M112 55h91m20 0h111"/><g class="art-line"><path d="M111 104h218M111 139h218M111 174h218M150 91v102M203 91v102M256 91v102M309 91v102"/></g><rect class="art-highlight" x="204" y="140" width="51" height="34" rx="4"/><path class="art-fill" d="m229 146 10 10-10 10-10-10z"/><text x="98" y="61">CHOCHERAS / AGENDA</text></svg>}
+                {project.visual === 'pegasus' && <svg viewBox="0 0 440 260"><path class="art-line" d="M53 206h333"/><path class="art-panel" d="m98 116 82-48 82 48v86l-82 47-82-47z"/><path class="art-line" d="m98 116 82 49 82-49m-82 49v84m-40-108 41-25 43 25v43l-42 24-42-24z"/><path class="art-fill" d="m157 112 22-13 23 13v24l-23 13-22-13z"/><path class="art-highlight" d="M292 71h70v110h-70z"/><path class="art-line" d="M304 92h46m-46 16h46m-46 16h30"/><path class="art-fill" d="M311 147h32v20h-32z"/><text x="287" y="59">PEGASUS / STORE</text></svg>}
+              </div>
+              <span class="project__visual-foot">{lang === 'es' ? 'ILUSTRACIÓN DEL SISTEMA' : 'SYSTEM ILLUSTRATION'} · {project.number}</span>
+            </div>
+            <div class="project__content">
+              <div class="project__meta"><span>{t.projectLabel} {project.number}</span></div>
+              <p class="project__description">{project.description}</p>
+              <ul class="project__stack" aria-label={lang === 'es' ? 'Tecnologías verificadas' : 'Verified technologies'}>{project.stack.map((skill) => <li>{skill}</li>)}</ul>
+              <div class="project__foot"><span>{project.note}</span>{'href' in project && <a href={project.href} target="_blank" rel="noreferrer">{'linkLabel' in project ? project.linkLabel : ''}<span aria-hidden="true">↗</span></a>}</div>
+            </div>
+            </div>
+          </details>)}
+        </div>
+      </section>
+
+      <section class="skills section-shell section-block" id="enfoque" aria-labelledby="skills-title">
+        <div class="section-heading"><p class="eyebrow">{t.skillsKicker}</p><span class="section-heading__rule"></span><h2 class="section-heading__label">{t.section.skills}</h2></div>
+        <div class="skills__intro"><h2 id="skills-title" class="display-heading">{t.skillsTitle.split('\n').map((line) => <span>{line}</span>)}</h2><p>{lang === 'es' ? 'Elijo herramientas según el contexto y las necesidades del sistema.' : 'I choose tools based on the context and needs of the system.'}</p></div>
+        <div class="skill-groups">
+          {t.skillGroups.map((group) => <article class="skill-group"><div class="skill-group__top"><span>{group.index}</span><h3>{group.title}</h3><span class="skill-group__cross">＋</span></div><p>{group.description}</p><ul>{group.items.map((item) => <li>{item}</li>)}</ul></article>)}
+        </div>
+      </section>
+
+      <section class="contact section-shell section-block" id="contacto" aria-labelledby="contact-title">
+        <div class="section-heading"><p class="eyebrow">{t.contactKicker}</p><span class="section-heading__rule"></span><h2 class="section-heading__label">{t.section.contact}</h2></div>
+        <div class="contact__layout"><div><h2 id="contact-title" class="contact__title">{t.contactTitle.split('\n').map((line) => <span>{line}</span>)}</h2><p class="contact__intro">{t.contactText}</p></div><div class="contact__actions"><button class="button button--primary magnetic contact-form-open" type="button" aria-haspopup="dialog" aria-controls="contact-dialog"><span>{t.emailCta}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 4l6 6-6 6" /></svg></button><div class="contact__links"><button class="copy-email text-link" type="button" data-email={profile.email}>{t.copyEmail}<span aria-hidden="true">＋</span></button><a class="text-link" href={profile.github} target="_blank" rel="noreferrer">{t.githubCta}<span aria-hidden="true">↗</span></a></div><span class="copy-feedback" role="status" aria-live="polite"></span></div></div>
+      </section>
+
+      <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-form-title">
+        <form class="contact-form" id="contact-form" method="post" action={`https://formsubmit.co/ajax/${profile.email}`}>
+          <div class="contact-form__header"><div><p class="eyebrow">{lang === 'es' ? 'CONTACTO / MENSAJE' : 'CONTACT / MESSAGE'}</p><h2 id="contact-form-title">{t.contactFormTitle}</h2></div><button class="contact-form__close" type="button" data-close-contact aria-label={t.closeForm}>×</button></div>
+          <p class="contact-form__intro">{t.contactFormIntro}</p>
+          <label>{t.nameLabel}<input name="name" autocomplete="name" required maxlength="100" /></label>
+          <label>{t.emailLabel}<input name="email" type="email" autocomplete="email" required maxlength="160" /></label>
+          <label>{t.messageLabel}<textarea name="message" required rows="4" maxlength="4000"></textarea></label>
+          <div class="contact-form__honeypot" aria-hidden="true"><label>Leave this field empty<input name="_honey" tabindex="-1" autocomplete="off" /></label></div>
+          <input type="hidden" name="_subject" value={lang === 'es' ? 'Nuevo mensaje desde el portafolio drkzz' : 'New message from the drkzz portfolio'} />
+          <input type="hidden" name="_url" value={`${profile.domain}/${lang}/`} />
+          <button class="button button--primary contact-form__submit" type="submit"><span>{t.sendMessage}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 4l6 6-6 6" /></svg></button>
+          <p class="contact-form__feedback" role="status" aria-live="polite"></p>
+          <a class="contact-form__direct" href={`mailto:${profile.email}`}>{profile.email}<span aria-hidden="true">↗</span></a>
+        </form>
+      </dialog>
+    </main>
+    <footer class="site-footer section-shell"><a class="wordmark" href="#top">drkzz<span>.</span></a><span>{t.footer}</span><div class="site-footer__right"><span>© {new Date().getFullYear()} drkzz</span><a href="#top">{t.backTop}<span aria-hidden="true">↑</span></a></div></footer>
+
+    <script>
+      import { initInteractions } from '../scripts/interactions';
+      import { initMotion } from '../scripts/motion';
+      initInteractions();
+      initMotion();
+    </script>
+  </body>
+</html>

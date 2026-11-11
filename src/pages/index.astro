@@ -1,0 +1,19 @@
+---
+const destination = '/es/';
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <meta name="robots" content="noindex" />
+    <title>drkzz — Carlos Sisniegas</title>
+    <script is:inline>
+      let selected;
+      try { selected = localStorage.getItem('drkzz-language'); } catch {}
+      location.replace(selected === 'en' ? '/en/' : '/es/');
+    </script>
+  </head>
+  <body><a href={destination}>Entrar al portafolio / Open portfolio</a></body>
+</html>
